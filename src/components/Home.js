@@ -8,7 +8,7 @@ import AppsGrid from './AppsGrid';
 import WeatherGrid from './WeatherGrid';
 import PinnedApps from './PinnedApps';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [state, setState] = useState();
   const ref = useRef();
   const data = [<WeatherGrid />, <AppsGrid />, <AppsGrid />];
@@ -44,7 +44,7 @@ const Home = () => {
             inactiveDotScale={1}
           />
         </SafeAreaView>
-        <PinnedApps />
+        <PinnedApps navigation={navigation} />
       </ImageBackground>
     </SafeAreaView>
   );
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: '100%',
-
   },
   image: {
     flex: 1,
@@ -66,9 +65,7 @@ const styles = StyleSheet.create({
     verticalAlign: 'top',
     margin: 0,
   },
-  paginationContainer: {
- 
-  },
+  paginationContainer: {},
   content: {
     backgroundColor: 'transplant',
     width: '100%',

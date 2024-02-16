@@ -7,16 +7,27 @@ import Contact from '../components/Contact';
 import Calculator from '../components/Calculator';
 import Home from '../components/Home';
 import ContactInfo from '../components/ContactInfo';
+import Header from '../components/common/Header';
+import ContactForm from '../components/ContactForm';
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Home" component={Home} />
+      <Stack.Navigator>
+        <Stack.Screen name="ContactForm" component={ContactForm} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{headerShown: false}}
+        />
         <Stack.Screen name="Dial" component={DialPad} />
-        <Stack.Screen name="Contact" component={Contact} />
+        <Stack.Screen
+          name="Contact"
+          component={Contact}
+          options={{headerRight: props => <Header {...props} />}}
+        />
         <Stack.Screen name="ContactInfo" component={ContactInfo} />
         <Stack.Screen name="Calculator" component={Calculator} />
       </Stack.Navigator>

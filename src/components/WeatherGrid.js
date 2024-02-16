@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     height: '30%',
   },
   flatList: {
-    marginBottom: '25%',
+    flex:1,
   },
   flatContainer: {
     alignSelf: 'center',

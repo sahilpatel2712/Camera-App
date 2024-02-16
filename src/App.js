@@ -1,9 +1,13 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import BootSplash from 'react-native-bootsplash';
 import StackNavigator from './navigation/StackNavigator';
 
 const App = () => {
+  useEffect(() => {
+    BootSplash.hide();
+  }, []);
+
   return <StackNavigator />;
 };
 

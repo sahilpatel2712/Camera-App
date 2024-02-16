@@ -12,18 +12,21 @@ const data = [
   {
     id: 1,
     uri: require('../assets/images/phone_icon.png'),
+    path: 'Dial',
   },
   {
     id: 2,
     uri: require('../assets/images/contact-app-icon.jpg'),
+    path: 'Contact',
   },
   {
     id: 3,
     uri: require('../assets/images/calculator_icon.png'),
+    path: 'Calculator',
   },
 ];
 
-const PinnedApps = () => {
+const PinnedApps = ({navigation}) => {
   return (
     <>
       <View style={styles.container}>
@@ -33,7 +36,9 @@ const PinnedApps = () => {
           horizontal={false}
           columnWrapperStyle={{alignSelf: 'center'}}
           renderItem={({item}) => (
-            <TouchableOpacity style={styles.item}>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => navigation.navigate(item.path)}>
               <Image style={styles.image} source={item.uri} />
             </TouchableOpacity>
           )}
