@@ -2,77 +2,14 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
-const data = [
-  {
-    id: 1,
-    text: 'App',
-  },
-  {
-    id: 2,
-    text: 'App',
-  },
-  {
-    id: 3,
-    text: 'App',
-  },
-  {
-    id: 4,
-    text: 'App',
-  },
-  {
-    id: 5,
-    text: 'App',
-  },
-  {
-    id: 6,
-    text: 'App',
-  },
-  {
-    id: 7,
-    text: 'App',
-  },
-  {
-    id: 8,
-    text: 'App',
-  },
-  {
-    id: 9,
-    text: 'App',
-  },
-  {
-    id: 10,
-    text: 'App',
-  },
-  {
-    id: 11,
-    text: 'App',
-  },
-  {
-    id: 12,
-    text: 'App',
-  },
-  {
-    id: 13,
-    text: 'App',
-  },
-  {
-    id: 14,
-    text: 'App',
-  },
-  {
-    id: 15,
-    text: 'App',
-  },
-
-];
+import {screenApps} from '../modules/data';
 
 const AppsGrid = () => {
   return (
     <>
       <View style={{flex: 1, justifyContent: 'center'}}>
         <FlatList
-          data={data}
+          data={screenApps}
           numColumns={3}
           inverted={true}
           horizontal={false}

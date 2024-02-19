@@ -24,7 +24,7 @@ const Home = ({navigation}) => {
             <Carousel
               ref={ref}
               data={data}
-              activeAnimationType="timing"
+              activeAnimationType="spring"
               sliderWidth={395}
               itemWidth={369}
               inactiveSlideOpacity={0}

@@ -2,33 +2,8 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import WeatherInfo from './WeatherInfo';
+import {weatherScreenApps} from '../modules/data';
 
-const data = [
-  {
-    id: 4,
-    text: 'App',
-  },
-  {
-    id: 5,
-    text: 'App',
-  },
-  {
-    id: 6,
-    text: 'App',
-  },
-  {
-    id: 7,
-    text: 'App',
-  },
-  {
-    id: 8,
-    text: 'App',
-  },
-  {
-    id: 9,
-    text: 'App',
-  },
-];
 const WeatherGrid = () => {
   return (
     <>
@@ -37,12 +12,12 @@ const WeatherGrid = () => {
       </View>
       <View style={styles.flatList}>
         <FlatList
-          data={data}
+          data={weatherScreenApps}
           numColumns={3}
           inverted={true}
           horizontal={false}
           columnWrapperStyle={styles.flatContainer}
-          renderItem={({item, index}) => (
+          renderItem={({item}) => (
             <TouchableOpacity style={styles.item}>
               <Text style={styles.text}>{item.text}</Text>
             </TouchableOpacity>
@@ -61,7 +36,7 @@ const styles = StyleSheet.create({
     height: '30%',
   },
   flatList: {
-    flex:1,
+    flex: 1,
   },
   flatContainer: {
     alignSelf: 'center',

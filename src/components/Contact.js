@@ -8,43 +8,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 
-const Contact = ({navigation}) => {
-  const data = [
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-    {name: 'sahil', uri: require('../assets/images/user_icon.png')},
-  ];
+const Contacts = ({navigation}) => {
+  const contacts = useSelector(state => state.contacts);
   return (
     <View>
       <FlatList
-        data={data}
+        data={contacts}
         renderItem={({item}) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate('ContactInfo', {params: item})}
+            onPress={() => navigation.navigate('ContactInfo', item)}
             style={styles.item}>
-            <Image source={item.uri} style={styles.image} />
+            <Image source={{uri: item.imageUri}} style={styles.image} />
             <Text style={styles.text}>{item.name}</Text>
           </TouchableOpacity>
         )}
@@ -54,7 +30,7 @@ const Contact = ({navigation}) => {
   );
 };
 
-export default Contact;
+export default Contacts;
 
 const styles = StyleSheet.create({
   item: {
@@ -62,9 +38,9 @@ const styles = StyleSheet.create({
     padding: '2%',
     marginVertical: 8,
     marginHorizontal: 16,
-    backgroundColor: '#E5E1DA',
+    backgroundColor: '#fff',
     gap: 25,
-    borderRadius:10
+    borderRadius: 10,
   },
   text: {
     fontSize: 20,
@@ -74,5 +50,6 @@ const styles = StyleSheet.create({
   image: {
     height: 30,
     width: 30,
+    borderRadius:100
   },
 });

@@ -167,7 +167,7 @@ const Calculator = () => {
         setCurrent(result.toString());
       }
       setEqual(true);
-      setOperator(false)
+      setOperator(false);
     }
   };
   const handleClear = () => {
@@ -269,6 +269,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: '#000',
     fontWeight: 'bold',
-    marginVertical:"5%"
+    marginVertical: '5%',
   },
 });

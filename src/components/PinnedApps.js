@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   FlatList,
   Image,
@@ -7,31 +7,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
-const data = [
-  {
-    id: 1,
-    uri: require('../assets/images/phone_icon.png'),
-    path: 'Dial',
-  },
-  {
-    id: 2,
-    uri: require('../assets/images/contact-app-icon.jpg'),
-    path: 'Contact',
-  },
-  {
-    id: 3,
-    uri: require('../assets/images/calculator_icon.png'),
-    path: 'Calculator',
-  },
-];
+import {bottomApps} from '../modules/data';
 
 const PinnedApps = ({navigation}) => {
+  const pinnedApps = useMemo(() => bottomApps, []);
   return (
     <>
       <View style={styles.container}>
         <FlatList
-          data={data}
+          data={pinnedApps}
           numColumns={3}
           horizontal={false}
           columnWrapperStyle={{alignSelf: 'center'}}
