@@ -59,7 +59,7 @@ const Calculator = () => {
       id: 8,
       text: '+',
       color: '#FE7A36',
-      handlePress: () => handleInput('+'),
+      handlePress: () => handleOperatorInput('+'),
     },
     {
       id: 9,
@@ -83,7 +83,7 @@ const Calculator = () => {
       id: 12,
       text: '−',
       color: '#FE7A36',
-      handlePress: () => handleInput('-'),
+      handlePress: () => handleOperatorInput('-'),
     },
     {
       id: 13,
@@ -107,7 +107,7 @@ const Calculator = () => {
       id: 16,
       text: 'X',
       color: '#FE7A36',
-      handlePress: () => handleInput('*'),
+      handlePress: () => handleOperatorInput('*'),
     },
     {
       id: 17,
@@ -119,7 +119,7 @@ const Calculator = () => {
       id: 18,
       text: '%',
       color: '#FE7A36',
-      handlePress: () => handleInput('%'),
+      handlePress: () => handleOperatorInput('%'),
     },
     {
       id: 19,
@@ -131,7 +131,7 @@ const Calculator = () => {
       id: 20,
       text: '/',
       color: '#FE7A36',
-      handlePress: () => handleInput('/'),
+      handlePress: () => handleOperatorInput('/'),
     },
   ];
   const [currentValue, setCurrent] = useState('');
@@ -167,28 +167,32 @@ const Calculator = () => {
         setCurrent(result.toString());
       }
       setEqual(true);
-      setOperator(false);
+      setOperator(true);
     }
   };
   const handleClear = () => {
     setCurrent('');
     setInputValue('');
   };
-  const handleInput = value => {
+  const handleOperatorInput = value => {
     if (isEqualCheck) {
+      setInputValue(currentValue);
       setCurrent('');
-      setInputValue(' ');
       setEqual(false);
     }
-    if ('+-*/%'.includes(value)) {
-      if (isEnterOperator) {
-        setInputValue(prev => prev + value);
-      }
-      setOperator(false);
-    } else {
+    if (isEnterOperator) {
       setInputValue(prev => prev + value);
-      setOperator(true);
     }
+    setOperator(false);
+  };
+  const handleInput = value => {
+    if (isEqualCheck) {
+      handleClear();
+      setEqual(false);
+    }
+
+    setInputValue(prev => prev + value);
+    setOperator(true);
   };
 
   const handleRemove = () => {

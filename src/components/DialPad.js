@@ -53,12 +53,12 @@ const DialPad = () => {
         keyExtractor={item => item.id}
       />
       <View style={styles.lastRow}>
-        <Pressable>
+        <TouchableOpacity>
           <Image
             source={require('../assets/images/call_button.png')}
             style={styles.LastRowButton}
           />
-        </Pressable>
+        </TouchableOpacity>
         <Pressable onPress={handleRemove}>
           <FontAwesome5
             name="backspace"
@@ -109,24 +109,25 @@ const styles = StyleSheet.create({
   LastRowButton: {
     height: 60,
     width: 60,
-    marginHorizontal: '6%',
+    marginHorizontal: '7%',
   },
 
   lastRow: {
     flexDirection: 'row',
     paddingHorizontal: '5%',
     justifyContent: 'flex-end',
-    marginBottom: '8%',
+    marginBottom: '10%',
   },
 
   inputText: {
-    marginHorizontal: '10%',
+    marginHorizontal: '20%',
     fontSize: 30,
     color: '#000',
     fontWeight: 'bold',
     position: 'relative',
-    marginTop: '41%',
+    marginTop: '45%',
     marginBottom: '3%',
+    textAlign: 'center',
   },
 });
 

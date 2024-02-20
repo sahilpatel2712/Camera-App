@@ -9,9 +9,9 @@ import WeatherGrid from './WeatherGrid';
 import PinnedApps from './PinnedApps';
 
 const Home = ({navigation}) => {
-  const [state, setState] = useState();
+  const [state, setState] = useState(0);
   const ref = useRef();
-  const data = [<WeatherGrid />, <AppsGrid />, <AppsGrid />];
+  const screens = [<WeatherGrid />, <AppsGrid />, <AppsGrid />];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -23,7 +23,7 @@ const Home = ({navigation}) => {
           <View style={{flex: 1, justifyContent: 'center'}}>
             <Carousel
               ref={ref}
-              data={data}
+              data={screens}
               activeAnimationType="spring"
               sliderWidth={395}
               itemWidth={369}
@@ -37,7 +37,7 @@ const Home = ({navigation}) => {
           <Pagination
             containerStyle={styles.paginationContainer}
             carouselRef={ref}
-            dotsLength={data.length}
+            dotsLength={screens.length}
             activeDotIndex={state}
             dotStyle={{backgroundColor: 'white'}}
             tappableDots={true}
