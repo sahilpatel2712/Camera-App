@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -14,8 +15,10 @@ import {
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {dialData} from '../modules/data';
 
-const DialPad = () => {
-  const [dialNumber, setNumber] = useState('');
+const DialPad = ({route, navigation}) => {
+  const [dialNumber, setNumber] = useState();
+
+  const {phone} = route.params;
 
   const handlePress = value => {
     setNumber(prev => prev + value);
@@ -31,6 +34,10 @@ const DialPad = () => {
       <Text style={styles.buttonText}>{value}</Text>
     </TouchableOpacity>
   );
+
+  useEffect(() => {
+    setNumber(phone);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -75,7 +82,7 @@ const DialPad = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F5F7F8',
   },
   flatList: {
     height: '40%',
@@ -92,9 +99,8 @@ const styles = StyleSheet.create({
     verticalAlign: 'middle',
     height: 75,
     width: 75,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: '#000',
+    borderRadius: 100,
+    backgroundColor: '#E3E1D9',
     opacity: 1,
   },
   buttonText: {
@@ -109,12 +115,12 @@ const styles = StyleSheet.create({
   LastRowButton: {
     height: 60,
     width: 60,
-    marginHorizontal: '7%',
+    marginHorizontal: '6.5%',
   },
 
   lastRow: {
     flexDirection: 'row',
-    paddingHorizontal: '5%',
+    paddingHorizontal: '7%',
     justifyContent: 'flex-end',
     marginBottom: '10%',
   },

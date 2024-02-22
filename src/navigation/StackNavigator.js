@@ -13,6 +13,7 @@ import Contacts from '../components/Contact';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setInitialState} from '../redux';
+import BackButton from '../components/common/HeaderBackButton';
 
 const Stack = createStackNavigator();
 
@@ -31,28 +32,56 @@ const StackNavigator = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerTitleAlign: 'center',
+          headerLeft: () => <BackButton />,
+        }}>
         <Stack.Screen
           name="Home"
           component={Home}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="Dial" component={DialPad} />
+        <Stack.Screen
+          name="Dial"
+          component={DialPad}
+          options={{
+            headerLeft: null,
+            headerStyle: {backgroundColor: '#F5F7F8'},
+          }}
+        />
         <Stack.Screen
           name="Contacts"
           component={Contacts}
-          options={{headerRight: props => <Header {...props} />}}
+          options={{
+            headerRight: () => <Header />,
+            headerLeft: null,
+            headerStyle: {backgroundColor: '#F5F7F8'},
+          }}
         />
-        <Stack.Screen name="Calculator" component={Calculator} />
+        <Stack.Screen
+          name="Calculator"
+          component={Calculator}
+          options={{
+            headerLeft: null,
+            headerStyle: {backgroundColor: '#F5F7F8'},
+          }}
+        />
         <Stack.Screen
           name="ContactInfo"
           component={ContactInfo}
-          options={{title: 'Contacts'}}
+          options={{
+            title: 'Details',
+            headerStyle: {backgroundColor: '#BBE2EC'},
+          }}
         />
         <Stack.Screen
           name="ContactForm"
           component={ContactForm}
-          options={{title: 'Contacts'}}
+          options={{
+            title: 'Contacts',
+            headerStyle: {backgroundColor: '#BBE2EC'},
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

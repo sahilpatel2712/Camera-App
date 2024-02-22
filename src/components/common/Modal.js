@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
     padding: '1%',
   },
   modalTextContainer: {
-    marginTop: '1%',
+    height: '30%',
+    marginTop: '2%',
   },
   modalText: {
     textAlign: 'center',
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '10%',
     flexDirection: 'row',
     alignSelf: 'center',
-
+    height:"60%",
     width: '100%',
   },
   modalButton: {

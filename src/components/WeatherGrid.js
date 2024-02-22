@@ -1,12 +1,23 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import WeatherInfo from './WeatherInfo';
 import {weatherScreenApps} from '../modules/data';
 
 const WeatherGrid = () => {
+  const width = Dimensions.get('screen').width;
+
   return (
-    <>
+    <View style={{flex: 1, justifyContent: 'center', width: width}}>
       <View style={styles.weatherInfo}>
         <WeatherInfo />
       </View>
@@ -17,15 +28,18 @@ const WeatherGrid = () => {
           inverted={true}
           horizontal={false}
           columnWrapperStyle={styles.flatContainer}
-          renderItem={({item}) => (
-            <TouchableOpacity style={styles.item}>
-              <Text style={styles.text}>{item.text}</Text>
-            </TouchableOpacity>
+          renderItem={({item, index}) => (
+            <View style={[styles.itemView]} key={index}>
+              <TouchableOpacity style={styles.item}>
+                <Image source={item.uri} style={styles.image} />
+              </TouchableOpacity>
+              <Text style={styles.bottomText}>{item.text}</Text>
+            </View>
           )}
           keyExtractor={item => item.id}
         />
       </View>
-    </>
+    </View>
   );
 };
 
@@ -34,6 +48,9 @@ export default WeatherGrid;
 const styles = StyleSheet.create({
   weatherInfo: {
     height: '30%',
+    paddingHorizontal: '8%',
+    justifyContent: 'center',
+    marginTop: '5%',
   },
   flatList: {
     flex: 1,
@@ -41,22 +58,27 @@ const styles = StyleSheet.create({
   flatContainer: {
     alignSelf: 'center',
   },
-  item: {
-    padding: 20,
-    marginVertical: 15,
-    marginHorizontal: 20,
+  itemView: {
+    marginVertical: 25,
+    marginHorizontal: 25,
     verticalAlign: 'middle',
-    height: 75,
-    width: 75,
-    borderRadius: 20,
-    backgroundColor: '#fff',
-    opacity: 1,
+    height: 70,
+    width: 70,
   },
-  text: {
-    color: '#000',
-    textAlign: 'center',
+  item: {
     height: '100%',
     width: '100%',
-    textAlignVertical: 'center',
+    borderRadius: 20,
+    opacity: 1,
+  },
+  image: {
+    borderRadius: 20,
+    height: '100%',
+    width: '100%',
+  },
+  bottomText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: '600',
   },
 });

@@ -52,108 +52,111 @@ export const dialData = [
 
 export const weatherScreenApps = [
   {
-    id: 4,
-    text: 'App',
-  },
-  {
-    id: 5,
-    text: 'App',
-  },
-  {
-    id: 6,
-    text: 'App',
-  },
-  {
-    id: 7,
-    text: 'App',
-  },
-  {
-    id: 8,
-    text: 'App',
-  },
-  {
-    id: 9,
-    text: 'App',
-  },
-];
-
-export const bottomApps = [
-  {
     id: 1,
-    uri: require('../assets/images/phone_icon.png'),
-    path: 'Dial',
+    text: 'Files',
+    uri: require('../assets/images/app1.png'),
   },
   {
     id: 2,
-    uri: require('../assets/images/contact-app-icon.jpg'),
-    path: 'Contacts',
+    text: 'Music',
+    uri: require('../assets/images/app2.png'),
   },
   {
     id: 3,
-    uri: require('../assets/images/calculator_icon.png'),
-    path: 'Calculator',
+    text: 'Safari',
+    uri: require('../assets/images/app3.png'),
+  },
+  {
+    id: 4,
+    text: 'Settings',
+    uri: require('../assets/images/app4.png'),
+  },
+  {
+    id: 5,
+    text: 'Clock',
+    uri: require('../assets/images/app5.png'),
+  },
+  {
+    id: 6,
+    text: 'Stocks',
+    uri: require('../assets/images/app6.png'),
   },
 ];
 
 export const screenApps = [
   {
     id: 1,
-    text: 'App',
+    text: 'Files',
+    uri: require('../assets/images/app1.png'),
   },
   {
     id: 2,
-    text: 'App',
+    text: 'Music',
+    uri: require('../assets/images/app2.png'),
   },
   {
     id: 3,
-    text: 'App',
+    text: 'Safari',
+    uri: require('../assets/images/app3.png'),
   },
   {
     id: 4,
-    text: 'App',
+    text: 'Settings',
+    uri: require('../assets/images/app4.png'),
   },
   {
     id: 5,
-    text: 'App',
+    text: 'Clock',
+    uri: require('../assets/images/app5.png'),
   },
   {
     id: 6,
-    text: 'App',
+    text: 'Stocks',
+    uri: require('../assets/images/app6.png'),
   },
   {
     id: 7,
-    text: 'App',
+    text: 'Remote',
+    uri: require('../assets/images/app7.png'),
   },
   {
     id: 8,
-    text: 'App',
+    text: 'Apple Tv',
+    uri: require('../assets/images/app8.png'),
   },
   {
     id: 9,
-    text: 'App',
+    text: 'Compass',
+    uri: require('../assets/images/app9.png'),
   },
   {
     id: 10,
-    text: 'App',
+    text: 'Activity',
+    uri: require('../assets/images/app10.png'),
   },
   {
     id: 11,
-    text: 'App',
+    text: 'Indoor',
+    uri: require('../assets/images/app11.png'),
   },
   {
     id: 12,
-    text: 'App',
+    text: 'Videos',
+    uri: require('../assets/images/app12.png'),
   },
   {
     id: 13,
-    text: 'App',
+    text: 'Mail',
+    uri: require('../assets/images/app13.png'),
   },
   {
     id: 14,
-    text: 'App',
+    text: 'App Store',
+    uri: require('../assets/images/app14.png'),
   },
   {
     id: 15,
-    text: 'App',
+    text: 'Photos',
+    uri: require('../assets/images/app15.png'),
   },
 ];

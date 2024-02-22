@@ -232,6 +232,7 @@ export default Calculator;
 const styles = StyleSheet.create({
   container: {
     margin: '1%',
+    backgroundColor: '#F5F7F8',
     flex: 1,
   },
   flatList: {

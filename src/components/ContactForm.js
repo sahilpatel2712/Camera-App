@@ -1,11 +1,14 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Formik} from 'formik';
 import React, {useEffect, useState} from 'react';
 import {
   Image,
-  KeyboardAvoidingView,
+  Keyboard,
+  Pressable,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -22,6 +25,7 @@ import {ContactValidation} from '../modules/validation';
 import {generateID} from '../modules/helper';
 import {useDispatch} from 'react-redux';
 import {addContact, updateContact} from '../redux';
+import LinearGradient from 'react-native-linear-gradient';
 
 const defaultUserProfile =
   'https://cdn-icons-png.freepik.com/256/3135/3135715.png?ga=GA1.1.1664036746.1708082225';
@@ -60,117 +64,179 @@ const ContactForm = ({route, navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior="height" style={{flex: 1}}>
-        <View style={styles.imagePickerContainer}>
-          <TouchableOpacity style={styles.imagePicker} onPress={handleSelect}>
-            <Image
-              source={{
-                uri: imageUri,
-              }}
-              style={{height: '100%', width: '100%', borderRadius: 100}}
-            />
-            <FontAwesome5
-              name="camera"
-              style={styles.profileIcon}
-              color="#fff"
-              size={20}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.inputContainer}>
-          <Formik
-            initialValues={initialValue}
-            onSubmit={handleSubmitForm}
-            validationSchema={ContactValidation}>
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              errors,
-              touched,
-            }) => (
-              <>
-                <View style={styles.inputFieldView}>
-                  <AntDesign style={styles.icon} name="user" size={20} />
-                  <TextInput
-                    placeholderTextColor="#000"
-                    style={styles.inputField}
-                    showSoftInputOnFocus={true}
-                    placeholder="Name"
-                    onChangeText={handleChange('name')}
-                    onBlur={handleBlur('name')}
-                    value={values.name}
-                  />
-                </View>
-                {touched.name && errors.name && (
-                  <ErrorText massage={errors.name} />
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <LinearGradient
+          start={{x: 0.0, y: 0.0}}
+          end={{x: 0.0, y: 1.0}}
+          colors={['#BBE2EC', '#F5F7F8']}
+          style={{flex: 1, padding: '2%'}}>
+          <Pressable style={{flex: 1}} onPress={() => Keyboard.dismiss()}>
+            <View style={styles.imagePickerContainer}>
+              <TouchableOpacity
+                style={styles.imagePicker}
+                onPress={handleSelect}>
+                <Image
+                  source={{
+                    uri: imageUri,
+                  }}
+                  style={{height: '100%', width: '100%', borderRadius: 100}}
+                />
+                <FontAwesome5
+                  name="camera"
+                  style={styles.profileIcon}
+                  color="#fff"
+                  size={20}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.inputContainer}>
+              <Formik
+                initialValues={initialValue}
+                onSubmit={handleSubmitForm}
+                validationSchema={ContactValidation}>
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  errors,
+                  touched,
+                }) => (
+                  <>
+                    <View style={{height: '90%'}}>
+                      <View style={styles.inputFieldView}>
+                        <AntDesign style={styles.icon} name="user" size={20} />
+                        <TextInput
+                          placeholderTextColor="#9BA4B5"
+                          style={styles.inputField}
+                          showSoftInputOnFocus={true}
+                          placeholder="Name"
+                          onChangeText={handleChange('name')}
+                          onBlur={handleBlur('name')}
+                          value={values.name}
+                        />
+                      </View>
+                      {touched.name && errors.name && (
+                        <ErrorText massage={errors.name} />
+                      )}
+
+                      <View style={styles.inputFieldView}>
+                        <Feather style={styles.icon} name="phone" size={20} />
+                        <TextInput
+                          placeholderTextColor="#9BA4B5"
+                          style={styles.inputField}
+                          placeholder="Phone"
+                          inputMode="numeric"
+                          onChangeText={handleChange('phone')}
+                          onBlur={handleBlur('phone')}
+                          value={values.phone}
+                        />
+                      </View>
+                      {touched.phone && errors.phone && (
+                        <ErrorText massage={errors.phone} />
+                      )}
+                      <View style={styles.inputFieldView}>
+                        <AntDesign style={styles.icon} name="mail" size={20} />
+                        <TextInput
+                          placeholderTextColor="#9BA4B5"
+                          style={styles.inputField}
+                          showSoftInputOnFocus={true}
+                          placeholder="Email"
+                          inputMode="email"
+                          onChangeText={handleChange('email')}
+                          onBlur={handleBlur('email')}
+                          value={values.email}
+                        />
+                      </View>
+
+                      <View style={styles.inputFieldView}>
+                        <Ionicons
+                          style={styles.icon}
+                          name="location-outline"
+                          size={20}
+                        />
+                        <TextInput
+                          placeholderTextColor="#9BA4B5"
+                          style={styles.inputField}
+                          showSoftInputOnFocus={true}
+                          placeholder="Address"
+                          inputMode="text"
+                          onChangeText={handleChange('address')}
+                          onBlur={handleBlur('address')}
+                          value={values.address}
+                        />
+                      </View>
+                      <View style={styles.inputFieldView}>
+                        <Ionicons
+                          style={styles.icon}
+                          name="bag-outline"
+                          size={20}
+                        />
+                        <TextInput
+                          placeholderTextColor="#9BA4B5"
+                          style={styles.inputField}
+                          showSoftInputOnFocus={true}
+                          placeholder="Work info"
+                          inputMode="text"
+                          onChangeText={handleChange('work')}
+                          onBlur={handleBlur('work')}
+                          value={values.work}
+                        />
+                      </View>
+                      <View style={styles.inputFieldView}>
+                        <Ionicons
+                          style={styles.icon}
+                          name="logo-facebook"
+                          size={20}
+                        />
+                        <TextInput
+                          placeholderTextColor="#9BA4B5"
+                          style={styles.inputField}
+                          showSoftInputOnFocus={true}
+                          placeholder="Facebook"
+                          inputMode="text"
+                          onChangeText={handleChange('facebook')}
+                          onBlur={handleBlur('facebook')}
+                          value={values.facebook}
+                        />
+                      </View>
+                      <View style={styles.inputFieldView}>
+                        <Ionicons
+                          style={styles.icon}
+                          name="logo-twitter"
+                          size={20}
+                        />
+                        <TextInput
+                          placeholderTextColor="#9BA4B5"
+                          style={styles.inputField}
+                          showSoftInputOnFocus={true}
+                          placeholder="Twitter"
+                          inputMode="text"
+                          onChangeText={handleChange('twitter')}
+                          onBlur={handleBlur('twitter')}
+                          value={values.twitter}
+                        />
+                      </View>
+                    </View>
+                    <View style={styles.buttonsContainer}>
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => navigation.goBack()}>
+                        <Text style={styles.buttonsText}>Cancel</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={handleSubmit}>
+                        <Text style={styles.buttonsText}>Save</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </>
                 )}
-
-                <View style={styles.inputFieldView}>
-                  <Feather style={styles.icon} name="phone" size={20} />
-                  <TextInput
-                    placeholderTextColor="#000"
-                    style={styles.inputField}
-                    placeholder="Phone"
-                    inputMode="numeric"
-                    onChangeText={handleChange('phone')}
-                    onBlur={handleBlur('phone')}
-                    value={values.phone}
-                  />
-                </View>
-                {touched.phone && errors.phone && (
-                  <ErrorText massage={errors.phone} />
-                )}
-                <View style={styles.inputFieldView}>
-                  <AntDesign style={styles.icon} name="mail" size={20} />
-                  <TextInput
-                    placeholderTextColor="#000"
-                    style={styles.inputField}
-                    showSoftInputOnFocus={true}
-                    placeholder="Email"
-                    inputMode="email"
-                    onChangeText={handleChange('email')}
-                    onBlur={handleBlur('email')}
-                    value={values.email}
-                  />
-                </View>
-
-                <View style={styles.inputFieldView}>
-                  <Ionicons
-                    style={styles.icon}
-                    name="location-outline"
-                    size={20}
-                  />
-                  <TextInput
-                    placeholderTextColor="#000"
-                    style={styles.inputField}
-                    showSoftInputOnFocus={true}
-                    placeholder="Address"
-                    inputMode="text"
-                    onChangeText={handleChange('address')}
-                    onBlur={handleBlur('address')}
-                    value={values.address}
-                  />
-                </View>
-
-                <View style={styles.buttonsContainer}>
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => navigation.goBack()}>
-                    <Text style={styles.buttonsText}>Cancel</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={handleSubmit}>
-                    <Text style={styles.buttonsText}>Save</Text>
-                  </TouchableOpacity>
-                </View>
-              </>
-            )}
-          </Formik>
-        </View>
-      </KeyboardAvoidingView>
+              </Formik>
+            </View>
+          </Pressable>
+        </LinearGradient>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -179,7 +245,6 @@ export default ContactForm;
 
 const styles = StyleSheet.create({
   container: {
-    padding: '2%',
     flex: 1,
   },
   imagePickerContainer: {
@@ -189,7 +254,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imagePicker: {
-    backgroundColor: '#FDBF60',
     height: 100,
     width: 100,
     borderRadius: 100,
@@ -212,22 +276,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 10,
     marginVertical: '3%',
+    width: '100%',
   },
   inputField: {
     color: '#000',
+    width: '90%',
   },
   icon: {
     alignSelf: 'center',
-    color: '#000',
+    color: '#333',
   },
   buttonsContainer: {
     marginHorizontal: '10%',
     flexDirection: 'row',
-    position: 'absolute',
-    bottom: '1%',
     alignSelf: 'center',
-    height: '5%',
+    height: '8%',
     width: '100%',
+    marginTop: '2%',
   },
   button: {width: '50%'},
   buttonsText: {

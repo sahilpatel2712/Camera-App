@@ -1,17 +1,30 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable quotes */
-import React, {useRef, useState} from 'react';
-import {ImageBackground, SafeAreaView, StyleSheet, View} from 'react-native';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
+import React, {useState} from 'react';
+import {
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import AppsGrid from './AppsGrid';
 import WeatherGrid from './WeatherGrid';
 import PinnedApps from './PinnedApps';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const Home = ({navigation}) => {
-  const [state, setState] = useState(0);
-  const ref = useRef();
-  const screens = [<WeatherGrid />, <AppsGrid />, <AppsGrid />];
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  let {width: windowWidth} = useWindowDimensions();
+  const screens = [<WeatherGrid />, <AppsGrid />, <AppsGrid />, <AppsGrid />];
+
+  const handleScroll = event => {
+    const contentOffsetX = event.nativeEvent.contentOffset.x;
+    const index = Math.round(contentOffsetX / windowWidth);
+    setActiveIndex(index);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -20,31 +33,34 @@ const Home = ({navigation}) => {
         resizeMode="cover"
         style={styles.image}>
         <SafeAreaView style={{flex: 1, paddingTop: '10%'}}>
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            <Carousel
-              ref={ref}
-              data={screens}
-              activeAnimationType="spring"
-              sliderWidth={395}
-              itemWidth={369}
-              inactiveSlideOpacity={0}
-              onSnapToItem={index => setState(index)}
-              renderItem={({item, index}) => (
-                <View style={styles.content}>{item}</View>
-              )}
-            />
+          <View style={styles.scrollContainer}>
+            <ScrollView
+              horizontal={true}
+              style={styles.scrollViewStyle}
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onScroll={handleScroll}
+              scrollEventThrottle={50}>
+              {screens.map((item, index) => {
+                return <View key={index}>{item}</View>;
+              })}
+            </ScrollView>
           </View>
-          <Pagination
-            containerStyle={styles.paginationContainer}
-            carouselRef={ref}
-            dotsLength={screens.length}
-            activeDotIndex={state}
-            dotStyle={{backgroundColor: 'white'}}
-            tappableDots={true}
-            inactiveDotScale={1}
-          />
+          <View style={styles.indicatorContainer}>
+            {screens.map((item, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.normalDots,
+                  {backgroundColor: index === activeIndex ? '#fff' : '#ccc'},
+                ]}
+              />
+            ))}
+          </View>
         </SafeAreaView>
-        <PinnedApps navigation={navigation} />
+        <View style={styles.pinnedContainer}>
+          <PinnedApps navigation={navigation} />
+        </View>
       </ImageBackground>
     </SafeAreaView>
   );
@@ -61,16 +77,35 @@ const styles = StyleSheet.create({
     opacity: 1,
     height: '100%',
   },
-  carouselContainer: {
-    verticalAlign: 'top',
-    margin: 0,
-  },
-  paginationContainer: {},
-  content: {
-    backgroundColor: 'transplant',
+  scrollContainer: {
     width: '100%',
-    borderRadius: 5,
+    height: '90%',
+  },
+  scrollViewStyle: {
+    width: '100%',
     height: '100%',
+  },
+
+  indicatorContainer: {
+    height: '10%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+  },
+  normalDots: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginHorizontal: 4,
+    backgroundColor: '#fff',
+  },
+  pinnedContainer: {
+    padding: '2%',
+    alignContent: 'center',
+    alignItems: 'center',
+    height: '13%',
+    width: '100%',
   },
 });
 

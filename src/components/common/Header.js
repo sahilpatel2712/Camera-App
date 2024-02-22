@@ -14,6 +14,8 @@ const Header = () => {
       email: '',
       address: '',
       imageUri: '',
+      work: '',
+      facebook: '',
     });
   };
   return (
