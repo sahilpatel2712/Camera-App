@@ -11,12 +11,13 @@ import {
   Pressable,
   Image,
   SafeAreaView,
+  Linking,
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {dialData} from '../modules/data';
 
 const DialPad = ({route, navigation}) => {
-  const [dialNumber, setNumber] = useState();
+  const [dialNumber, setNumber] = useState('');
 
   const {phone} = route.params;
 
@@ -34,6 +35,12 @@ const DialPad = ({route, navigation}) => {
       <Text style={styles.buttonText}>{value}</Text>
     </TouchableOpacity>
   );
+
+  const handleCall = () => {
+    if (dialNumber.length !== 0) {
+      Linking.openURL(`tel:${dialNumber}`);
+    }
+  };
 
   useEffect(() => {
     setNumber(phone);
@@ -60,7 +67,7 @@ const DialPad = ({route, navigation}) => {
         keyExtractor={item => item.id}
       />
       <View style={styles.lastRow}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleCall}>
           <Image
             source={require('../assets/images/call_button.png')}
             style={styles.LastRowButton}

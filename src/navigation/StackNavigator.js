@@ -14,6 +14,8 @@ import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setInitialState} from '../redux';
 import BackButton from '../components/common/HeaderBackButton';
+import Gallery from '../components/Gallery';
+import CameraScreen from '../components/Camera';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +39,19 @@ const StackNavigator = () => {
           headerTitleAlign: 'center',
           headerLeft: () => <BackButton />,
         }}>
+        <Stack.Screen
+          name="Camera"
+          component={CameraScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Gallery"
+          component={Gallery}
+          options={{
+            title: 'Photos',
+            headerStyle: {backgroundColor: '#F5F7F8'},
+          }}
+        />
         <Stack.Screen
           name="Home"
           component={Home}
