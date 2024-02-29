@@ -12,10 +12,11 @@ import ContactForm from '../components/ContactForm';
 import Contacts from '../components/Contact';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setInitialState} from '../redux';
+import {setImageInitialState, setInitialState} from '../redux';
 import BackButton from '../components/common/HeaderBackButton';
 import Gallery from '../components/Gallery';
 import CameraScreen from '../components/Camera';
+import ImageView from '../components/Image';
 
 const Stack = createStackNavigator();
 
@@ -23,8 +24,12 @@ const StackNavigator = () => {
   const dispatch = useDispatch();
   const setContacts = async () => {
     const contacts = await AsyncStorage.getItem('contactList');
+    const images = await AsyncStorage.getItem('imageList');
     if (contacts) {
       dispatch(setInitialState(JSON.parse(contacts)));
+    }
+    if (images) {
+      dispatch(setImageInitialState(JSON.parse(images)));
     }
   };
 
@@ -40,11 +45,6 @@ const StackNavigator = () => {
           headerLeft: () => <BackButton />,
         }}>
         <Stack.Screen
-          name="Camera"
-          component={CameraScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
           name="Gallery"
           component={Gallery}
           options={{
@@ -57,6 +57,20 @@ const StackNavigator = () => {
           component={Home}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="Image"
+          component={ImageView}
+          options={{
+            headerStyle: {backgroundColor: '#F5F7F8'},
+          }}
+        />
+
+        <Stack.Screen
+          name="Camera"
+          component={CameraScreen}
+          options={{headerShown: false}}
+        />
+
         <Stack.Screen
           name="Dial"
           component={DialPad}

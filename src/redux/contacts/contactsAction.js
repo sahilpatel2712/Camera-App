@@ -18,7 +18,7 @@ export const setInitialState = data => {
 export const addContact = data => {
   return async (dispatch, getState) => {
     let state = getState();
-    let newData = [...state.contacts, data];
+    let newData = [...state.contacts.contacts, data];
     await AsyncStorage.setItem('contactList', JSON.stringify(newData));
     dispatch(contactsAction(newData));
   };
@@ -27,7 +27,7 @@ export const addContact = data => {
 export const removeContact = id => {
   return async (dispatch, getState) => {
     let state = getState();
-    let newData = state.contacts.filter(value => value.id !== id);
+    let newData = state.contacts.contacts.filter(value => value.id !== id);
     await AsyncStorage.setItem('contactList', JSON.stringify(newData));
     dispatch(contactsAction(newData));
   };
@@ -37,7 +37,7 @@ export const updateContact = data => {
   return async (dispatch, getState) => {
     let state = getState();
     let contactIndex;
-    const newContactList = [...state.contacts];
+    const newContactList = [...state.contacts.contacts];
     state.contacts.find((value, index) => {
       if (value.id === data.id) {
         contactIndex = index;

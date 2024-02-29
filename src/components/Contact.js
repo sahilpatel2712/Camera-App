@@ -13,7 +13,7 @@ import {
 import {useSelector} from 'react-redux';
 
 const Contacts = ({navigation}) => {
-  const contacts = useSelector(state => state.contacts);
+  const {contacts} = useSelector(state => state.contacts);
   return (
     <SafeAreaView
       style={{height: '100%', width: '100%', paddingVertical: '2%',backgroundColor:"#F5F7F8"}}>

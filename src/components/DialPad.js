@@ -11,8 +11,8 @@ import {
   Pressable,
   Image,
   SafeAreaView,
-  Linking,
 } from 'react-native';
+import Communications from 'react-native-communications';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {dialData} from '../modules/data';
 
@@ -38,7 +38,7 @@ const DialPad = ({route, navigation}) => {
 
   const handleCall = () => {
     if (dialNumber.length !== 0) {
-      Linking.openURL(`tel:${dialNumber}`);
+      Communications.phonecall(dialNumber, true);
     }
   };
 

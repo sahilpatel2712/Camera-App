@@ -1,28 +1,62 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Dimensions,
   FlatList,
-  Image,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {screenApps} from '../modules/data';
+import {useSelector} from 'react-redux';
+import GalleryItem from './GalleryItem';
 
-const Gallery = () => {
+const Gallery = ({navigation}) => {
   const width = Dimensions.get('screen').width;
+  const {images} = useSelector(state => state.images);
+  const [selectMode, setSelectMode] = useState(false);
+  const [selectImage, setSelectImage] = useState([]);
+
+  const handleSelectImage = image => {
+    if (selectMode) {
+      let id = image.name;
+      if (selectImage.includes(id)) {
+        if (selectImage.length === 1) {
+          setSelectMode(false);
+        }
+        setSelectImage(prevIds => prevIds.filter(itemId => itemId !== id));
+      } else {
+        setSelectImage(prevIds => [...prevIds, id]);
+      }
+    } else {
+      navigation.navigate('Image', image);
+    }
+  };
+
+  const handleBulkDelete = () => {};
+
+  const handleSelectMode = id => {
+    if (!selectMode) {
+      setSelectMode(prev => !prev);
+      setSelectImage(prev => [...prev, id]);
+    } else {
+      setSelectMode(prev => !prev);
+      setSelectImage([]);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <View
         style={{
           height: '8%',
-          paddingHorizontal: '10%',
+          paddingHorizontal: '5%',
           width: '100%',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
         }}>
         <Text
           style={{
@@ -32,29 +66,63 @@ const Gallery = () => {
             textAlignVertical: 'center',
             color: '#000',
           }}>
-          Recent Photos
+          Camera Photos
         </Text>
+        {selectMode ? (
+          <Text
+            style={{
+              height: '100%',
+              fontSize: 20,
+              fontWeight: 'bold',
+              textAlignVertical: 'center',
+              color: '#000',
+            }}>
+            Select {selectImage.length}
+          </Text>
+        ) : (
+          ''
+        )}
       </View>
       <View
         style={{
           flex: 1,
           justifyContent: 'center',
           width: width,
+          alignItems: 'center',
         }}>
         <FlatList
-          data={screenApps}
+          data={images}
           numColumns={3}
-          columnWrapperStyle={{alignSelf: 'center'}}
+          horizontal={false}
+          contentContainerStyle={{paddingBottom: 100}}
           renderItem={({item}) => (
-            <View style={[styles.itemView]}>
-              <TouchableOpacity style={styles.item}>
-                <Image source={item.uri} style={styles.image} />
-              </TouchableOpacity>
-            </View>
+            <GalleryItem
+              item={item}
+              selectImage={selectImage}
+              handleSelectImage={handleSelectImage}
+              handleSelectMode={handleSelectMode}
+            />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.name}
         />
       </View>
+
+      {selectImage.length ? (
+        <View style={styles.bottomContainer}>
+          <TouchableOpacity
+            style={styles.modalButton}
+            onPress={() => handleSelectMode(null)}>
+            <Text style={styles.buttonsText}>Cancel</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleBulkDelete}
+            style={styles.modalButton}>
+            <Text style={styles.buttonsText}>Delete</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        ''
+      )}
     </SafeAreaView>
   );
 };
@@ -68,12 +136,16 @@ const styles = StyleSheet.create({
     padding: '2%',
     alignItems: 'center',
   },
-  itemView: {
-    marginVertical: 10,
-    marginHorizontal: 5,
-    verticalAlign: 'middle',
-    height: 90,
-    width: 115,
+
+  bottomContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#F6F6F6',
+    width: '90%',
+    height: '10%',
+    position: 'absolute',
+    bottom: '2%',
+    justifyContent: 'space-around',
+    borderRadius: 10,
     elevation: 5,
     shadowOffset: {
       width: 0,
@@ -81,16 +153,13 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.5,
     shadowRadius: 3,
-    backgroundColor: '#FFF',
-    borderRadius: 10,
   },
-  item: {
+  buttonsText: {
+    textAlign: 'center',
     height: '100%',
-    width: '100%',
-  },
-  image: {
-    height: '100%',
-    width: '100%',
-    borderRadius: 10,
+    textAlignVertical: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000',
   },
 });

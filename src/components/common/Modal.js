@@ -3,14 +3,14 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Modal from 'react-native-modal';
 
-function ModalTester({isModalVisible, handleModal}) {
+function ModalTester({isModalVisible, handleModal,text}) {
   return (
     <View>
       <Modal isVisible={isModalVisible}>
         <View style={styles.container}>
           <View style={styles.modalTextContainer}>
             <Text style={styles.modalText}>
-              This contact will remove from your contact list.
+             {text}
             </Text>
           </View>
           <View style={styles.buttonContainer}>

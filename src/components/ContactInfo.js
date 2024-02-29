@@ -166,6 +166,7 @@ const ContactInfo = ({route, navigation}) => {
           </TouchableOpacity>
         </View>
         <ModalTester
+          text="This contact will remove from your contact list."
           isModalVisible={isModalVisible}
           handleModal={handleModal}
         />
