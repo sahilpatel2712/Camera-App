@@ -45,6 +45,16 @@ const StackNavigator = () => {
           headerLeft: () => <BackButton />,
         }}>
         <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Camera"
+          component={CameraScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
           name="Gallery"
           component={Gallery}
           options={{
@@ -52,23 +62,13 @@ const StackNavigator = () => {
             headerStyle: {backgroundColor: '#F5F7F8'},
           }}
         />
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{headerShown: false}}
-        />
+
         <Stack.Screen
           name="Image"
           component={ImageView}
           options={{
             headerStyle: {backgroundColor: '#F5F7F8'},
           }}
-        />
-
-        <Stack.Screen
-          name="Camera"
-          component={CameraScreen}
-          options={{headerShown: false}}
         />
 
         <Stack.Screen

@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {deleteImage} from '../../modules/helper';
 const imageAction = data => {
   return {
     type: 'IMAGE_ACTION',
@@ -23,10 +24,21 @@ export const addImage = data => {
   };
 };
 
-export const removeImage = id => {
+export const removeImage = listId => {
   return async (dispatch, getState) => {
     let state = getState();
-    let newData = state.images.images.filter(value => value.id !== id);
+    let newData = state.images.images.filter(value => {
+      if (listId.includes(value.name)) {
+        deleteImage(value.uri).then(res => {
+          if (res) {
+            return !listId.includes(value.name);
+          }
+        });
+      } else {
+        return true;
+      }
+    });
+
     await AsyncStorage.setItem('imageList', JSON.stringify(newData));
     dispatch(imageAction(newData));
   };

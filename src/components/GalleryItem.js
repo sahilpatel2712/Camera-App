@@ -5,23 +5,24 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 const GalleryItem = ({
   item,
-  selectImage,
-  handleSelectImage,
+  index,
+  selectImages,
+  handleSelectImages,
   handleSelectMode,
 }) => {
   return (
     <View
       style={{
         ...styles.itemView,
-        backgroundColor: selectImage.includes(item.name) ? '#15F5BA' : '#fff',
+        backgroundColor: selectImages.includes(item.name) ? '#15F5BA' : '#fff',
       }}>
       <TouchableOpacity
         style={{
           ...styles.item,
-          ...(selectImage.includes(item.name) ? styles.selectedView : {}),
+          ...(selectImages.includes(item.name) ? styles.selectedView : {}),
         }}
         onLongPress={() => handleSelectMode(item.name)}
-        onPress={() => handleSelectImage(item)}>
+        onPress={() => handleSelectImages(item, index)}>
         <Image source={{uri: item.uri}} style={styles.image} />
       </TouchableOpacity>
     </View>

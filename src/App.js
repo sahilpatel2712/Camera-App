@@ -5,6 +5,7 @@ import StackNavigator from './navigation/StackNavigator';
 import {Provider} from 'react-redux';
 import store from './redux/store';
 
+
 const App = () => {
   useEffect(() => {
     BootSplash.hide();

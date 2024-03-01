@@ -12,9 +12,11 @@ import {
 } from 'react-native';
 import WeatherInfo from './WeatherInfo';
 import {weatherScreenApps} from '../modules/data';
+import {useNavigation} from '@react-navigation/native';
 
 const WeatherGrid = () => {
   const width = Dimensions.get('screen').width;
+  const navigation = useNavigation();
 
   return (
     <View style={{flex: 1, justifyContent: 'center', width: width}}>
@@ -30,7 +32,12 @@ const WeatherGrid = () => {
           columnWrapperStyle={styles.flatContainer}
           renderItem={({item, index}) => (
             <View style={[styles.itemView]} key={index}>
-              <TouchableOpacity style={styles.item}>
+              <TouchableOpacity
+                style={styles.item}
+                onPress={() =>
+                  item.navigationPath &&
+                  navigation.navigate(item.navigationPath)
+                }>
                 <Image source={item.uri} style={styles.image} />
               </TouchableOpacity>
               <Text style={styles.bottomText}>{item.text}</Text>

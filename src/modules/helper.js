@@ -12,7 +12,7 @@ export const generateID = () => {
   return id;
 };
 
-export const saveImage = async (uri) => {
+export const saveImage = async uri => {
   if (uri.startsWith('file://')) {
     const pathSplitter = '/';
     const filePath = uri.replace('file://', '');
@@ -21,5 +21,17 @@ export const saveImage = async (uri) => {
     await RNFS.moveFile(filePath, `${RNFS.DocumentDirectoryPath}/${fileName}`);
     uri = `file://${RNFS.DocumentDirectoryPath}/${fileName}`;
     return uri;
+  }
+};
+export const deleteImage = async uri => {
+  try {
+    if (uri.startsWith('file://')) {
+      const filePath = uri.replace('file://', '');
+      await RNFS.unlink(filePath);
+      return true;
+    }
+    return false;
+  } catch (error) {
+    return false;
   }
 };

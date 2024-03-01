@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
@@ -11,40 +10,47 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import GalleryItem from './GalleryItem';
+import {removeImage} from '../redux';
 
 const Gallery = ({navigation}) => {
   const width = Dimensions.get('screen').width;
   const {images} = useSelector(state => state.images);
   const [selectMode, setSelectMode] = useState(false);
-  const [selectImage, setSelectImage] = useState([]);
+  const [selectImages, setSelectImages] = useState([]);
+  const dispatch = useDispatch();
 
-  const handleSelectImage = image => {
+  const handleSelectImages = (image, index) => {
     if (selectMode) {
       let id = image.name;
-      if (selectImage.includes(id)) {
-        if (selectImage.length === 1) {
+      if (selectImages.includes(id)) {
+        if (selectImages.length === 1) {
           setSelectMode(false);
         }
-        setSelectImage(prevIds => prevIds.filter(itemId => itemId !== id));
+        setSelectImages(prevIds => prevIds.filter(itemId => itemId !== id));
       } else {
-        setSelectImage(prevIds => [...prevIds, id]);
+        setSelectImages(prevIds => [...prevIds, id]);
       }
     } else {
-      navigation.navigate('Image', image);
+      navigation.navigate('Image', {...image, index: index});
     }
   };
 
-  const handleBulkDelete = () => {};
+  const handleBulkDelete = () => {
+    dispatch(removeImage(selectImages));
+    setSelectMode(prev => !prev);
+    setSelectImages([]);
+  };
 
   const handleSelectMode = id => {
     if (!selectMode) {
       setSelectMode(prev => !prev);
-      setSelectImage(prev => [...prev, id]);
+      setSelectImages(prev => [...prev, id]);
     } else {
       setSelectMode(prev => !prev);
-      setSelectImage([]);
+      setSelectImages([]);
     }
   };
 
@@ -77,7 +83,7 @@ const Gallery = ({navigation}) => {
               textAlignVertical: 'center',
               color: '#000',
             }}>
-            Select {selectImage.length}
+            {selectImages.length} Selected
           </Text>
         ) : (
           ''
@@ -88,18 +94,20 @@ const Gallery = ({navigation}) => {
           flex: 1,
           justifyContent: 'center',
           width: width,
-          alignItems: 'center',
+          alignItems: images.length < 3 ? 'flex-start' : 'center',
+          paddingHorizontal: '4.6%',
         }}>
         <FlatList
           data={images}
           numColumns={3}
           horizontal={false}
           contentContainerStyle={{paddingBottom: 100}}
-          renderItem={({item}) => (
+          renderItem={({item, index}) => (
             <GalleryItem
               item={item}
-              selectImage={selectImage}
-              handleSelectImage={handleSelectImage}
+              index={index}
+              selectImages={selectImages}
+              handleSelectImages={handleSelectImages}
               handleSelectMode={handleSelectMode}
             />
           )}
@@ -107,17 +115,17 @@ const Gallery = ({navigation}) => {
         />
       </View>
 
-      {selectImage.length ? (
+      {selectImages.length ? (
         <View style={styles.bottomContainer}>
           <TouchableOpacity
             style={styles.modalButton}
             onPress={() => handleSelectMode(null)}>
-            <Text style={styles.buttonsText}>Cancel</Text>
+            <MaterialIcons style={styles.buttonsText} name="cancel" />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handleBulkDelete}
             style={styles.modalButton}>
-            <Text style={styles.buttonsText}>Delete</Text>
+            <MaterialIcons style={styles.buttonsText} name="delete" />
           </TouchableOpacity>
         </View>
       ) : (
@@ -158,7 +166,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     height: '100%',
     textAlignVertical: 'center',
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#000',
   },

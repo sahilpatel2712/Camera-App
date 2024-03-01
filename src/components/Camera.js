@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useRef, useState} from 'react';
@@ -18,13 +17,14 @@ import {saveImage} from '../modules/helper';
 import {useDispatch, useSelector} from 'react-redux';
 import {addImage} from '../redux';
 
-const CameraScreen = () => {
+const CameraScreen = ({navigation}) => {
   const ref = useRef();
   const [cameraType, setType] = useState(true);
-  const [flashMode, setFlashMode] = useState(true);
+  const [flashMode, setFlashMode] = useState(false);
   const [imageUri, setUri] = useState(null);
   const dispatch = useDispatch();
   const {images} = useSelector(state => state.images);
+
   const handleCapture = async () => {
     const uri = await ref.current.capture();
     let newUri = await saveImage(uri.uri);
@@ -32,15 +32,16 @@ const CameraScreen = () => {
       height: uri.height,
       width: uri.width,
       name: uri.name,
-      date: moment().format('MMMM Do YYYY'),
+      date: moment().format('MMMM Do YYYY    h:mm a'),
       uri: newUri,
     };
     dispatch(addImage(imageObject));
   };
-
   useEffect(() => {
     if (images.length !== 0) {
       setUri(images[0].uri);
+    } else {
+      setUri(null);
     }
   }, [images]);
 
@@ -65,24 +66,24 @@ const CameraScreen = () => {
         flashMode={flashMode ? 'on' : 'off'}
         resetFocusWhenMotionDetected
         zoomMode="on"
-        onZoom={e => console.log(e.nativeEvent.zoom)}
         torchMode="off"
       />
       <View style={styles.bottomContainer}>
         <View style={styles.imageView}>
-          <Pressable
-            style={{
-              height: '100%',
-              width: '100%',
-              borderRadius: 8,
-            }}>
-            {imageUri && (
+          {imageUri && (
+            <Pressable
+              style={{
+                height: '100%',
+                width: '100%',
+                borderRadius: 8,
+              }}
+              onPress={() => navigation.navigate('Gallery')}>
               <Image
                 style={{height: '100%', width: '100%', borderRadius: 8}}
                 source={{uri: imageUri}}
               />
-            )}
-          </Pressable>
+            </Pressable>
+          )}
         </View>
         <View style={styles.clickButton}>
           <View

@@ -3,15 +3,13 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Modal from 'react-native-modal';
 
-function ModalTester({isModalVisible, handleModal,text}) {
+const ModalTester = ({isModalVisible, handleModal, text}) => {
   return (
     <View>
       <Modal isVisible={isModalVisible}>
         <View style={styles.container}>
           <View style={styles.modalTextContainer}>
-            <Text style={styles.modalText}>
-             {text}
-            </Text>
+            <Text style={styles.modalText}>{text}</Text>
           </View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
@@ -29,7 +27,7 @@ function ModalTester({isModalVisible, handleModal,text}) {
       </Modal>
     </View>
   );
-}
+};
 
 export default ModalTester;
 
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '10%',
     flexDirection: 'row',
     alignSelf: 'center',
-    height:"60%",
+    height: '60%',
     width: '100%',
   },
   modalButton: {

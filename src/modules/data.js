@@ -52,34 +52,16 @@ export const dialData = [
 
 export const weatherScreenApps = [
   {
-    id: 1,
-    text: 'Files',
-    uri: require('../assets/images/app1.png'),
-  },
-  {
-    id: 2,
-    text: 'Music',
-    uri: require('../assets/images/app2.png'),
-  },
-  {
-    id: 3,
-    text: 'Safari',
-    uri: require('../assets/images/app3.png'),
-  },
-  {
     id: 4,
-    text: 'Settings',
-    uri: require('../assets/images/app4.png'),
+    text: 'Photos',
+    uri: require('../assets/images/app15.png'),
+    navigationPath: 'Gallery',
   },
   {
     id: 5,
-    text: 'Clock',
-    uri: require('../assets/images/app5.png'),
-  },
-  {
-    id: 6,
-    text: 'Stocks',
-    uri: require('../assets/images/app6.png'),
+    text: 'Camera',
+    uri: require('../assets/images/app16.png'),
+    navigationPath: 'Camera',
   },
 ];
 
@@ -156,7 +138,7 @@ export const screenApps = [
   },
   {
     id: 15,
-    text: 'Photos',
-    uri: require('../assets/images/app15.png'),
+    text: 'Compass',
+    uri: require('../assets/images/app9.png'),
   },
 ];

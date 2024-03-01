@@ -38,7 +38,7 @@ export const updateContact = data => {
     let state = getState();
     let contactIndex;
     const newContactList = [...state.contacts.contacts];
-    state.contacts.find((value, index) => {
+    state.contacts.contacts.find((value, index) => {
       if (value.id === data.id) {
         contactIndex = index;
         return value;
